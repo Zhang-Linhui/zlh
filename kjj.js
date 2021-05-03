@@ -17,7 +17,7 @@ const keylist=[
         (ad.next().length?ad.next():ad.siblings().first()).click();
     },()=>{
         let ad= $(".bilibili-player-video-btn-speed-menu-wrap .bilibili-player-active");
-        (ad.next().length?ad.next():ad.siblings().first()).click();
+        (ad.prev().length?ad.prev():ad.siblings().last()).click();
     },()=>{
         $(".bilibili-player-iconfont-volume").click();
     },()=>{
