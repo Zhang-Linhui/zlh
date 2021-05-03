@@ -9,6 +9,7 @@ const kx={
     }
 }
 console.log("你好");
+console.log("你好啊");
 const keylist=[
     ()=>{
         console.log("弹幕切换")
