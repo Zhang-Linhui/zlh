@@ -8,7 +8,6 @@ const kx={
         })
     }
 }
-console.log("jk");
 const keylist=[
     ()=>{
         console.log("弹幕切换")
