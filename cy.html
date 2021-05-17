@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+        }
+
+        #t1{
+            margin-top: 30px;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            background-color:rgb(5, 22, 97);
+        }
+        .sr input{
+            height:30px;
+            display: block;
+            margin: 5px auto;
+        }
+        #b1{
+            
+            width:60px;
+            border:none;
+            margin-top: 15px;
+            background:linear-gradient(#19c7fcd8,#262e0423);
+            outline:none;
+        }
+        #b1:hover{
+            cursor:pointer;
+        }
+        #b1:active{
+            position:relative;
+	        top:1px;
+        }
+        .sr{
+            position:fixed;
+            left:40px;
+            top:40px;
+            float: left;
+            width: 340px;
+            height:170px;
+            background:linear-gradient(#243949,#517fa4);
+            display: block;
+        }
+        .zlh{
+            width:700px;
+            min-height:100%;
+            position: absolute;
+            background-image: linear-gradient(-90deg, #29bdd9 0%, #276ace 100%);
+        }
+        .zlh p{
+            /* background:#31037a; */
+            border:1px solid rgb(13, 35, 97);
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            opacity: 0.7;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <div class="zlh">
+    </div>
+        <div class="sr">
+            <input type="text" name="" id="t1" placeholder="n个野人" oninput="value=value.replace(/[^\d]/g,'')">
+            <input type="text" name="" id="t2" placeholder="船载k人" oninput="value=value.replace(/[^\d]/g,'')">
+            <input type="button" value="执行" id="b1" >
+        </div>
+
+</body>
+<script>
+    var n=0;
+var boat=0;
+const dfs={
+    ll:[],
+    issafe(li){        
+        if(li[2].c+li[2].y>boat)
+            return false;
+        for(let i of li)
+            if((i.c<i.y&&i.c!=0)||(i.c<0||i.y<0))
+                return false;
+        return true;
+    },
+    zx(gh){
+        if(gh.c==0&&gh.y==0&&gh.b==-1){
+            this.ll.forEach(function(va,i,qq){
+                if(i){
+                    let sy=qq[i-1];
+                    $(".zlh").append("<p>有"+Math.abs(va.c-sy.c)+"个传教士和"+Math.abs(va.y-sy.y)+"个野人去了"+(va.b==1?"左":"右")+"边</p>");
+                }
+               $(".zlh").append("<p>"+(i+1)+".左岸有"+va.c+"个传教士和"+va.y+"个野人,右岸有"+(n-va.c)+"个传教士和"+(n-va.y)+"个野人,"+"船在"+(va.b==1?"左":"右")+"边</p>");
+              
+            })
+            return 1;
+        }else{
+            let l=[];
+            for(let i=boat;i>=0;i--)
+                for(let t =boat;t>=0;t--){
+                    let l1=[{
+                        c:gh.c-i*gh.b,
+                        y:gh.y-t*gh.b
+                    },
+                    {
+                        c:n-gh.c+i*gh.b,
+                        y:n-gh.y+t*gh.b
+                    },{c:i,y:t}];
+                    if(i+t>0&&!this.ll.find(va=>va.c==gh.c-i*gh.b&&va.y==gh.y-t*gh.b&&va.b==-gh.b)&&this.issafe(l1))
+                       l.push({c:gh.c-i*gh.b,y:gh.y-t*gh.b,b:-gh.b});
+                }
+            l.sort((a,b)=>(a.c+a.y)-(b.c+b.y));
+            for(var va of l){
+                this.ll.push(va);
+                if(this.zx(va)) 
+                    return 1;
+                this.ll.pop();
+            }
+        }
+        return 0;
+    }
+}
+$("#b1").click(()=>{
+   $(".zlh").html("");
+   n=parseInt($("#t1").val());
+   boat=parseInt($("#t2").val());
+   $("#t1").val("")
+   $("#t2").val("")
+   $(".zlh").append("<p>当有"+n+"个野人和传教士而船载"+boat+"人时的结果如下:"+"</p>");
+    dfs.ll=[];
+    dfs.ll.push({c:n,y:n,b:1});
+    if(!dfs.zx({c:n,y:n,b:1})){
+        $(".zlh").append("<p>"+"未找到"+"</p>");
+    }
+})
+
+</script>
+</html>
