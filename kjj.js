@@ -1,8 +1,8 @@
 console.log("0");
 let sss = 0;
 const wblist = [
-    [".bui-switch-input", 80],//弹幕开关
-    ["#图层_0", 90],//全屏
+    [".bui-switch-input", 81],//弹幕开关
+    ["#图层_1", 90],//全屏
     [".squirtle-select-item.active:last", 66],//倍速
     [".squirtle-select-item.active:first", 86],//清晰度
     [".squirtle-pagefullscreen-inactive", 88],//网页全屏
