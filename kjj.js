@@ -10,8 +10,8 @@ const wblist = [
 ]
 wblist.forEach((s, i) => {
     $(document).on("keydown", e => {
-        let u = $(s[0]).next().length ? $(s[0]).next() : $(s[0]).siblings().first()
-        let d = $(s[0]).prev().length ? $(s[0]).prev() : $(s[0]).siblings().last()
+        let u = $(s[0]).next().length ? $(s[0]).next() : $(s[0]).parent().chirdren().first()
+        let d = $(s[0]).prev().length ? $(s[0]).prev() : $(s[0]).parent().chirdren().last()
         if (e.ctrlKey && e.keyCode == s[1]) {
             console.log("023")
             u.click()
