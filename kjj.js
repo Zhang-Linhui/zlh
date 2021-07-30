@@ -36,4 +36,3 @@ class shotcut {
         $(document).off("keydown")
     }
 }
-(new shotcut()).st()
