@@ -1,6 +1,18 @@
 class shotcut {
     #wblist
     #excu
+    #fu = e => {
+        this.#wblist.forEach((s, i) => {
+            var d = ($(s[0]).next().length ? $(s[0]).next() : $(s[0]).parent().children().first())
+            var u = ($(s[0]).prev().length ? $(s[0]).prev() : $(s[0]).parent().children().last())
+            if (!this.#excu.includes(s[1]))
+                u = $(s[0])
+            else if (e.altKey && e.keyCode == s[1])
+                d.trigger("click")
+            if (e.ctrlKey && e.keyCode == s[1])
+                u.trigger("click")
+        })
+    }
     constructor(wbl, ex) {
         this.#wblist = [
             [".bui-switch-input", 81],//弹幕开关
@@ -19,20 +31,9 @@ class shotcut {
         }
     }
     st() {
-        $(document).on("keydown", e => {
-            this.#wblist.forEach((s, i) => {
-                var d = ($(s[0]).next().length ? $(s[0]).next() : $(s[0]).parent().children().first())
-                var u = ($(s[0]).prev().length ? $(s[0]).prev() : $(s[0]).parent().children().last())
-                if (!this.#excu.includes(s[1]))
-                    u = $(s[0])
-                else if (e.altKey && e.keyCode == s[1])
-                    d.click()
-                if (e.ctrlKey && e.keyCode == s[1])
-                    u.click()
-            })
-        })
+        $(document).on("keydown", this.#fu)
     }
     cl() {
-        $(document).off("keydown")
+        $(document).off("keydown", this.#fu)
     }
 }
